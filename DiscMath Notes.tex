@@ -1,0 +1,355 @@
+\documentclass{article}
+\usepackage[a4paper, left=25.4mm, top=25.4mm, right=25.4mm, bottom=25.4mm]{geometry}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{authoraftertitle}
+\usepackage{blindtext}
+\usepackage{bussproofs}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{oz}
+\usepackage{ragged2e}
+\usepackage{textcomp}
+\usepackage{textgreek}
+\renewcommand{\thesubsection}{\arabic{subsection}}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+\newcommand\lowermidtilde{\raisebox{-0.8ex}{\textasciitilde}}
+\newcommand\midtilde{\raisebox{-0.6ex}{\textasciitilde}}
+\newcommand{\partfarrow}{\rightharpoonup}
+\newcommand{\partf}{\rightharpoonup\!\!\!\!\!\!\!\!\!\raisebox{2.5pt}{$\rightharpoonup$}}
+
+\author{Victor Zhao\\xz398@cam.ac.uk}
+
+\begin{document}
+\centering
+\section*{Discrete Mathematics\\CST Part IA Paper 2}
+\MyAuthor
+
+\justifying
+\subsection{Proof}
+\begin{enumerate}
+    \item Some mathematical jargon:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item \textbf{Statement}: A sentence that is either true or false — but not both. 
+            \item \textbf{Predicate}: A statement whose truth depends on the value of one or more variables.
+            \item \textbf{Theorem}: A very important true statement.
+            \item \textbf{Proposition}: A less important but nonetheless interesting true statement.
+            \item \textbf{Lemma}: A true statement used in proving other true statements.
+            \item \textbf{Corollary}: A true statement that is a simple deduction from a theorem or proposition.
+            \item \textbf{Conjecture}: A statement believed to be true, but for which we have no proof.
+            \item \textbf{Proof}: Logical explanation of why a statement is true; a method for establishing truth.
+            \item \textbf{Logic}: The study of methods and principles used to distinguish good (correct) from bad (incorrect) reasoning.
+            \item \textbf{Axiom}: A basic assumption about a mathematical situation. Axioms can be considered facts that do not need to be proved (just to get us going in a subject) or they can be used in definitions.
+            \item \textbf{Definition}: An explanation of the mathematical meaning of a word (or phrase). The word (or phrase) is generally defined in terms of properties.
+            \item A statement is \textit{simple} (or \textit{atomic}) when it cannot be broken into other statements, and it is \textit{composite} when it is built by using several (simple or composite statements) connected by logical expressions
+        \end{itemize}
+    \item Contraposition:\\
+        The contrapositive of $P\implies Q$ is $\neg Q\implies\neg P$.
+    \item Modus Ponens:
+        If $P$ and $P\implies Q$ holds then so does $Q$.
+        \begin{prooftree}
+            \AxiomC{$P$}
+            \AxiomC{$P\implies Q$}
+            \BinaryInfC{$Q$}
+        \end{prooftree}
+    \item Some notations:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Implication: $\implies$
+            \item Bi-implication: $\Longleftrightarrow$
+            \item Universal quantification: $\forall x.P(x)$
+            \item Existential quantification: $\exists x.P(x)$
+            \item Unique existence: $\exists!x.P(x)$
+                $$\exists!x.P(x)\Longleftrightarrow\exists x.P(x)\wedge\Big(\forall y.\forall z.\big(P(y)\wedge P(z)\big)\implies y=z\Big)$$
+            \item Conjunction: $\wedge$
+            \item Disjunction: $\vee$
+            \item Negation: $\neg$
+        \end{itemize}
+    \item Equality axioms:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Every individual is equal to itself.
+                $$\forall x.x=x$$
+            \item (Leibniz equality) For any pair of equal individuals, if a property holds for one of them, then ait also holds for the other one.
+                $$\forall x.\;\forall y.\;x=y\implies (P(x)\implies P(y))$$
+        \end{itemize}
+\end{enumerate}
+\subsection{Numbers}
+\begin{enumerate}
+    \item Definitions of real numbers. A real number is:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item \textbf{rational} if it is of the form $\frac{m}{n}$ for a pair of integers $m$ and $n$; otherwise it is \textbf{irrational};
+            \item \textbf{positive} if it is greater than 0, and \textbf{negative} if it is smaller than 0;
+            \item \textbf{nonnegative} if it is greater than or equal to 0, and \textbf{nonpositive} if it is smaller than or equal to 0;
+            \item \textbf{natural} if it is a nonnegative integer.
+        \end{itemize}
+    \item Additive structure $(\mathbb{N},0,+)$ of natural numbers with zero and addition is a commutative monoid\\(a \textit{monoid} is a semigroup with an identity element; a \textit{semigroup} preserves closure and associativity):
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Monoid laws:
+                $$0+n=n+0=n\quad\text{(identity)}$$
+                $$(l+m)+n=l+(m+n)\quad\text{(associativity)}$$
+            \item Commutativity law:
+                $$m+n=n+m$$
+        \end{itemize}
+    \item Multiplicative structure $(\mathbb{N},1,\cdot)$ of natural numbers with one and multiplication is a commutative monoid):
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Monoid laws:
+                $$1\cdot n=n\cdot 1=n$$
+                $$(l\cdot m)\cdot n=l\cdot(m\cdot n)$$
+            \item Commutativity law:
+                $$m\cdot n=n\cdot m$$
+        \end{itemize}
+    \item The overall structure $(\mathbb{N},0,+,1,\cdot)$ is a commutative semiring:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $(\mathbb{N},0,+)$ is a commutative monoid;
+            \item $(\mathbb{N},1,\cdot)$ is a monoid;
+            \item Multiplication is distributive over addition:
+                $$l\cdot(m+n)=l\cdot m+l\cdot n$$
+            \item Multiplication by 0 annihilates $\mathbb{N}$:
+                $$0\cdot n=n\cdot 0=0$$
+        \end{itemize}
+    \item Cancellation:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Additive cancellation: for all natural numbers $k$, $m$, $n$,
+                $$k+m=k+n\implies m=n$$
+            \item Multiplicative cancellation: for all natural numbers $k$, $m$, $n$,
+                $$\text{if }k\neq0\text{ then }k\cdot m=k\cdot n\implies m=n$$
+        \end{itemize}
+    \item Inverses:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item A number $x$ is said to admit an \textbf{additive inverse} whenever there exists a number $y$ such that $x+y=0$;
+            \item A number $x$ is said to admit an \textbf{multiplicative inverse} whenever there exists a number $y$ such that $x\cdot y=1$. 
+        \end{itemize}
+    \item The integers $\mathbb{Z}$ form a commutative ring, and the rationals $\mathbb{Q}$ form a field:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item A \textit{group} is a monoid in which every element has an inverse;
+            \item A \textit{ring} is a semiring $(0,+)$, $(1,\cdot)$ where $(0,+)$ is a commutative group. It is commutative if $(1,\cdot)$ is also commutative;
+            \item A \textit{field} is a ring where every non-zero element has a multiplicative inverse.
+        \end{itemize}
+    \item Divisibility and congruence:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Let $d$ and $n$ be integers. We say that $d$ \textit{devides} $n$, and write $d|n$, whenever there exists an integer $k$ such that $n=k\cdot d$;
+            \item Fix a positive integer $m$. For integers $a$ and $b$, we say that $a$ \textit{is congruent to} $b$ \textit{modulo} $m$, and write $a\equiv b\;(\text{mod } m)$, whenever $m|(a-b)$.
+        \end{itemize}
+    \item For all prime numbers $p$ and integers $0\leq m\leq p$, either $\binom{p}{m}\equiv 0\;(\text{mod } p)$ or $\binom{p}{m}\equiv 1\;(\text{mod } p)$.\\
+        For $0<m<p$, $p|\binom{p}{m}$ and $(p-m)|\binom{p-1}{m}$.
+    \item The Freshman's Dream: For all natural numbers $m$, $n$ and primes $p$, 
+        $$(m+n)^p\equiv m^p+n^p\;(\text{mod } p)$$
+    \item The Dropout Lemma: For all natural numbers $m$ and primes $p$, 
+        $$(m+1)^p\equiv m^p+1\;(\text{mod } p)$$
+    \item The Many Dropout Lemma: For all natural numbers $m$ and $i$, and primes $p$,
+        $$(m+i)^p\equiv m^p+i\;(\text{mod } p)$$
+    \item Fermat's Little Theorem: For all natural numbers $i$ and primes $p$, 
+        \begin{enumerate}[label=(\arabic*),topsep=0pt]
+            \item $i^p\equiv i\;(\text{mod } p)$, and
+            \item $i^{p-1}\equiv 1\;(\text{mod } p)$ whenever $i$ is not a multiple of $p$.
+        \end{enumerate}
+    \item The Division Theorem: For every natural number $m$ and positive natural number $n$, there exists a unique pair of integers $q$ and $r$ such that $q\geq0$, $0\leq r\leq n$, and $m=q\cdot n+r$.
+    \item Modular arithmetic: For all natural numbers $m>1$, the modular-arithmetic structure 
+        $$(\mathbb{Z}_m,0,+_m,1,\cdot_m)$$
+        is a commutative ring.\\
+        For prime $p$, $\mathbb{Z}_p$ is a field.
+    \item Greatest Common Divisor: For all positive integers $m$ and $n$,
+        $$\text{gcd}(m,n)=\begin{cases}
+            n &, \text{if }n|m\\
+            \text{gcd}\big(n,\text{rem}(m,n)\big) &, \text{otherwise}
+        \end{cases}$$
+    \item Some fundamental properties of gcds:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Commutativity: $\text{gcd}(m,n)=\gcd(n,m)$,
+            \item Associativity: $\text{gcd}\big(l,\gcd(m,n)\big)=\text{gcd}\big(\gcd(l,m),n\big)$,
+            \item Distributivity: $\text{gcd}(l\cdot m,l\cdot n)=l\cdot\text{gcd}(m,n)$.
+        \end{itemize}
+    \item Theorem: For positive integers $k$, $m$, and $n$, if $k|(m\cdot n)$ and $\text{gcd}(k,m)=1$ then $k|n$.\\
+        Corollary (Euclid's Theorem): For positive integers $m$, $n$, and prime $p$, if $p|(m\cdot n)$ then $p|m$ or $p|n$.
+    \item For all positive integers $m$ and $n$,
+        \begin{enumerate}[label=(\arabic*),topsep=0pt]
+            \item $n\cdot\text{lc}_2(m,n)\equiv\text{gcd}(m,n)\;(\text{mod }m)$, and
+            \item whenever $\text{gcd}(m,n)=1$,\\
+                $[\text{lc}_2(m,n)]_m$ is the multiplicative inverse of $[n]_m$ in $\mathbb{Z}_m$.
+        \end{enumerate}
+\newpage
+    \item Principle of Induction:\\
+        Let $P(m)$ be a statement for $m$ ranging over the natural numbers greater than or equal to a fixed natural number $l$. If 
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $P(l)$ holds, and 
+            \item $\forall n\geq l\text{ in }\mathbb{N}.\big(P(n)\implies P(n+1)\big)$ also holds,
+        \end{itemize}
+        then
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $\forall m\geq l\text{ in }\mathbb{N}.P(m)$ holds.
+        \end{itemize}
+    \item Principle of Strong Induction:\\
+        Let $P(m)$ be a statement for $m$ ranging over the natural numbers greater than or equal to a fixed natural number $l$. If 
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $P(l)$ holds, and 
+            \item $\forall n\geq l\text{ in }\mathbb{N}.\Big(\big(\forall k\in[l..n].P(k)\big)\implies P(n+1)\Big)$ also holds,
+        \end{itemize}
+        then
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $\forall m\geq l\text{ in }\mathbb{N}.P(m)$ holds.
+        \end{itemize}
+    \item Well-Founded Induction:\\
+        \textbf{Definition:} a \textit{well-founded relation} is a binary relation $\prec$ on a set $A$ such that there are no infinite descending chains $\cdots\prec a_i\prec\cdots\prec a_1\prec a_0$. When $a\prec b$ we say $a$ is a \textit{predecessor} of $b$.\\
+        \textbf{Principle of Well-Founded Induction:} Let $\prec$ be a well-founded relation on a set $A$. if
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $\forall a\in A.\Big(\big(\forall b\prec a.P(b)\big)\implies P(a)\Big)$ holds,
+        \end{itemize}
+        then
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $\forall a\in A.P(a)$ holds.
+        \end{itemize}
+    \item Fundamental Theorem of Arithmetic: For every positive integer $n$ there is a unique finite ordered sequence of primes $(p_1\leq\cdots\leq p_l)$ with $l\in\mathbb{N}$ such that
+        $$n=\prod_{i=1}^{l}p_i.$$
+\end{enumerate}
+\newpage
+\subsection{Sets}
+\begin{enumerate}
+    \item Axioms:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Extensionality axiom: Two sets are equal if they have the same elements.
+                $$\forall\text{ sets }A, B\;.\;A=B\Longleftrightarrow(\forall x.x\in A\Longleftrightarrow x\in B)$$
+            \item Powerset axiom: For any set, there is a set consisting of all its subsets.
+            \item Pairing axiom: For every $a$ and $b$, there is a set with $a$ and $b$ as its only elements.
+            \item Union axiom: Every collection of sets has a union.
+            \item Infinity axiom: There is an infinite set, containing $\emptyset$ and closed under successor. \\($\text{Succ}(x)=_\text{def}x\cup\{x\}$)
+            \item Axiom of choice: Every surjection has a section (right inverse).
+            \item Replacement axiom: The direct image of every definable functional property on a set is a set.
+        \end{itemize}
+    \item Cardinality:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item $\forall\text{ finite set }U.\#\mathcal{P}(U)=2^{\#U}$
+            \item $\forall\text{ sets }A,B.\#(A\times B)=\#A\times\#B$
+            \item $\forall\text{ sets }A,B.\#(A\uplus B)=\#A+\#B$
+        \end{itemize}
+    \item Subsets:
+        $$A\subseteq B\Longleftrightarrow(\forall x.x\in A\implies x\in B)$$
+        $$A\subset B\Longleftrightarrow(A\subseteq B\wedge A\neq B)$$
+        Reflexivity: $\forall\text{ set }A\;.\;A\subseteq A$\\
+        Transitivity: $\forall\text{ set }A,B,C\;.\;(A\subseteq B\wedge B\subseteq C)\implies A\subseteq C$\\
+        Antisymmetry: $\forall\text{ set }A,B\;.\;(A\subseteq B\wedge B\subseteq A)\implies A=B$
+    \item Separation principle: For any set $A$ and any definable property $P$, there is a set containing precisely those elements of $A$ for which the property $P$ holds.
+        $$\{x\in A\;|\;P(x)\}$$
+    \item The powerset Boolean algebra: $\big(\mathcal{P}(U), \emptyset, U, \cup, \cap, (\cdot)^c\big)$
+        \begin{itemize}[label={-},topsep=0pt]
+            \item For all $A, B\in\mathcal{P}(U)$,
+                $$A\cup B=\{x\in U\;|\;x\in A\vee x\in B\}\in\mathcal{P}(U)$$
+                $$A\cap B=\{x\in U\;|\;x\in A\wedge x\in B\}\in\mathcal{P}(U)$$
+                $$A^c=\{x\in U\;|\;\neg(x\in A)\}\in\mathcal{P}(U)$$
+            \item The union operateion $\cup$ and the intersection operation $\cap$ are associative, commutative, and idempotent:
+                $$(A\cup B)\cup C=A\cup(B\cup C),\;A\cup B=B\cup A,\;A\cup A=A$$
+                $$(A\cap B)\cap C=A\cap(B\cap C),\;A\cap B=B\cap A,\;A\cap A=A$$
+            \item The \textit{empty set} $\emptyset$ is a neutral element for $\cup$ and the \textit{universal set} $U$ is a neutral element for $\cap$:
+                $$\emptyset\cup A=U\cap A=A$$
+            \item The empty set $\emptyset$ is an annihilator for $\cap$ and the universal set $U$ is an annihilator for $\cup$:
+                $$\emptyset\cap A=\emptyset$$
+                $$U\cup A=U$$
+            \item With respect to each other, the union operation $\cup$ and the intersection operation $\cap$ are distributive and absorptive:
+                $$A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$$
+                $$A\cup(B\cap C)=(A\cup B)\cap(A\cup C)$$
+                $$A\cup(A\cap B)=A\cap(A\cup B)=A$$
+            \item The complement operation $(\cdot)^c$ satisfies complementation laws:
+                $$A\cup A^c=U,\;A\cap A^c=\emptyset$$
+        \end{itemize}
+    \item Ordered pair: $\langle a, b\rangle=_{\text{def}}\big\{\{a\},\{a, b\}\big\}$\\
+    Fundamental property or ordered pairing: 
+        $$\forall a,b,x,y\;.\;\langle a,b\rangle=\langle x,y\rangle\Longleftrightarrow(a=x\wedge b=y)$$
+    \item Big Unions: Let $U$ be a set. For a collection of sets $\mathcal{F}\in\mathcal{P}(\mathcal{P}(U))\;(\text{i.e. }\mathcal{F}\subseteq\mathcal{P}(U))$, 
+        $$\bigcup\mathcal{F}=_{\text{def}}\{x\in U\;|\;\exists A\in\mathcal{F}.x\in A\}\in\mathcal{P}(U)$$
+    Idea: 
+        $$\bigcup\{A_1, A_2, \cdots\}=(A_1\cup A_2\cup\cdots)\subseteq U$$
+    \item Big Intersections: Let $U$ be a set. For a collection of sets $\mathcal{F}\in\mathcal{P}(\mathcal{P}(U))\;(\text{i.e. }\mathcal{F}\subseteq\mathcal{P}(U))$, 
+        $$\bigcap\mathcal{F}=_{\text{def}}\{x\in U\;|\;\forall A\in\mathcal{F}.x\in A\}\in\mathcal{P}(U)$$
+    Idea: 
+        $$\bigcap\{A_1, A_2, \cdots\}=(A_1\cap A_2\cap\cdots)\subseteq U$$
+    \item Tagging: $\{l\}\times A$
+    \item Disjoint Unions: $A\uplus B=_\text{def}\big(\{1\}\times A\big)\cup\big(\{2\}\times B\big)$
+        $$\forall x.x\in(A\uplus B)\Longleftrightarrow\big(\exists a\in A.x=(1,a)\big)\vee\big(\exists b\in B.x=(2,b)\big)$$
+\end{enumerate}
+\newpage
+\subsection{Relations}
+\begin{enumerate}
+    \item Some notations and definitions:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Relation: $\pfun$\\
+                For all finite sets $A$ and $B$, $\#\text{Rel}(A, B)=2^{\#A\cdot\#B}$
+            \item Partial function: $\rightharpoonup$\\
+                Set of partial functions: $\partf$\\
+                Every partial function $f:A\rightharpoonup B$ satisfies that: for each element $a$ of $A$ there is at most one element $b$ of $B$ such that $a\;f\;b$.
+                $$\forall f\in\text{Rel}(A, B).\;f\in(A\partf\;B)\Longleftrightarrow\forall a\in A.\forall b_1,b_2\in B.\;a\;f\;b_1\wedge a\;f\;b_2\implies b_1=b_2$$
+                For all finite sets $A$ and $B$, $\#(A\partf\;B) = (\#B+1)^{\#A}$
+            \item Mapping: $\mapsto$
+            \item Function: $\rightarrow$\\
+                Set of functions: $\Rightarrow$\\
+                A partial function is total if its domain of definition coincides with its source.
+                $$\forall f\in(A\partf\;B).\;f\in(A\Rightarrow B)\Longleftrightarrow\forall a\in A.\;\exists b\in B.\;a\;f\;b$$
+                $$\forall f\in\text{Rel}(A, B).\;f\in(A\Rightarrow B)\Longleftrightarrow\forall a\in A.\;\exists!b\in B.\;a\;f\;b$$
+                For all finite sets $A$ and $B$, $\#(A\Rightarrow B) = \#B^{\#A}$
+            \item Injection: $\rightarrowtail$\\
+                A function $f:A\rightarrow B$ is injective whenever 
+                $$\forall a_1,\;a_2\in A.\;f(a_1)=f(a_2)\implies a_1=a_2$$
+            \item Surjection: $\twoheadrightarrow$\\
+                A function $f:A\rightarrow B$ is surjective whenever 
+                $$\forall b\in B.\;\exists a\in A.\;f(a)=b$$
+                For all finite sets $A$ and $B$, $\#\text{Sur}(A,B)=$
+            \item Bijection: A function $f:A\rightarrow B$ is bijective whenever there exists a (necessarily unique) function $g:B\rightarrow A$ (referred to as the inverse of $f$) such that
+                $$g\circ f=\text{id}_A\quad\text{and}\quad f\circ g=\text{id}_B$$
+                For all finite sets $A$ and $B$,
+                $$\#\text{Bij}(A,B)=\begin{cases}
+                    0 &, \text{if }\#A\neq\#B\\
+                    n! &, \text{if }\#A=\#B=n
+                \end{cases}$$
+        \end{itemize}
+    \item Composition:\\
+        Composition of two relations $R:A\pfun B$ and $S:B\pfun C$: 
+            $$S\circ R:A\pfun C$$
+        Relational composition is associative and has the identity relation as neutral element:
+            $$\forall R:A\pfun B,\;S:B\pfun C,\;T:C\pfun D\;.\;(T\circ S)\circ R=T\circ(S\circ R)$$
+            $$\forall R:A\pfun B\;.\;R\circ\text{id}_A=\text{id}_B\circ R=R$$
+        $R^{\circ n}$: $R$ composed with itself $n$ times.\\
+        $R^{\circ*}=\bigcup_{n\in\mathbb{N}}R^{\circ n}$
+    \newpage
+    \item Preorders:\\
+        A preorder $(P,\sqsubseteq)$ consists of a set $P$ and a relation $\sqsubseteq$ on $P$ satisfying the following two axioms:
+        \begin{itemize}[label={-},topsep=0pt]
+            \item Reflexivity: $\forall x\in P.x\sqsubseteq x$
+            \item Transitivity: $\forall x,y,z\in P.(x\sqsubseteq y\wedge y\sqsubseteq z)\implies x\sqsubseteq z$
+        \end{itemize}
+        $R^{\circ*}$ is the reflexive-transitive closure of $R$\\
+        $R^{\circ*}$ is the least preorder containing $R$\\
+        $R^{\circ*}$ is the preorder freely generated by $R$
+    \item Isomorphism: $\cong$\\
+        Two sets $A$ and $B$ are isomorphic (and have the same cardinality) whenever there is a bijection between them,
+    \item Equivalence relations:\\
+        A relation $E$ on a set $A$ is an equivalence relation whenever it is:
+        \begin{enumerate}[label=(\arabic*),topsep=0pt]
+            \item Reflexive: $\forall x\in A.\;x\;E\;x$
+            \item Symmetric: $\forall x, y\in A.\; x\;E\;y\implies y\;E\;x$
+            \item Transitive: $\forall x, y, z\in A.\;(x\;E\;y\wedge y\;E\;z)\implies x\;E\;z$
+        \end{enumerate}
+    \item Set partitions:\\
+        A partition $P$ of a set $A$ is a set of non-empty subsets of $A$ (that is, $P\subseteq\mathcal{P}(A)$ and $\emptyset\notin P$), whose elements are typically referred to as blocks, such that
+        \begin{enumerate}[label=(\arabic*),topsep=0pt]
+            \item The union of all blocks yields $A$: $\bigcup P=A$, and
+            \item All blocks are pairwise disjoint: $\forall B_1, B_2\in P.\;B_1\neq B_2\implies B_1\cap B_2=\emptyset$
+        \end{enumerate}
+        For every set $A$: $\text{EqRel}(A)\cong\text{Part}(A)$
+    \item Enumerability:\\
+        A set $A$ is enumerable whenever there exists a surjection ($\mathbb{N}\twoheadrightarrow A$), or a injection ($A\rightarrowtail\mathbb{N}$), referred to as an enumeration.\\
+        A countable set is one that is either empty or enumerable.
+    \item Relational images and functional images:\\
+        Let $R:A\pfun B$ be a relation.
+        \begin{itemize}[label={-},topsep=0pt]
+            \item The direct image of $X\subseteq A$ under $R$ is the set $\overrightarrow{R}(X)\subseteq B$:
+                $$\overrightarrow{R}(X)=\{b\in B|\exists x\in X\;.\;x\;R\;b\}$$
+                This construction yields a function $\overrightarrow{R}:\mathcal{P}(A)\to\mathcal{P}(B)$.
+            \item The inverse image of $Y\subseteq B$ under $R$ is the set $\overleftarrow{R}(X)\subseteq A$:
+                $$\overleftarrow{R}(Y)=\{a\in A|\forall b\in B\;.\;a\;R\;b\implies b\in Y\}$$
+                This construction yields a function $\overleftarrow{R}(Y):\mathcal{P}(B)\to\mathcal{P}(A)$.
+        \end{itemize}
+        Let $f:A\to B$ be a function.
+        \begin{itemize}[label={-},topsep=0pt]
+            \item For all $X\subseteq A$, $\overrightarrow{f}(X)=\{b\in B|\exists a\in X\;.\;f(a)=b\}$;
+            \item For all $Y\subseteq B$, $\overleftarrow{f}(Y)=\{a\in A|f(a)\in Y\}$.
+        \end{itemize}
+\end{enumerate}
+\end{document}
