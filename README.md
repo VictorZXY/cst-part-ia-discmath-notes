@@ -1,4 +1,4 @@
-# cst-part-ia-discmath-notes
+# CST Part IA Discrete Mathematics Notes
 Notes for the Discrete Mathematics course in Part IA of the Cambridge Computer Science Tripos.
  
 Topics included:
